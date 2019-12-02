@@ -29,9 +29,9 @@ class App extends React.Component {
   markComplete = id => {
     const todosCopy = this.state.todos.map(todo => {
       if (todo.id === id) {
-        const completed = !todo.completed;
-        //return Object.assign({}, todo); this works too
+        // always return a new object        
         return { ...todo, completed: !todo.completed };
+        //return Object.assign({}, todo); this works too
       }
       return todo;
     });

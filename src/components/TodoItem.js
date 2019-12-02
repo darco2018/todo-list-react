@@ -13,7 +13,7 @@ class TodoItem extends Component {
   };
 
   render() {
-    // REmember to bind(this, id)!!! or use arrow function above
+    // REmember to bind(this, id) when passing a value!!! 
     //console.log(this.props.todo);
     const { id, title } = this.props.todo;
     return (
@@ -29,7 +29,8 @@ class TodoItem extends Component {
 }
 
 TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired
+  todo: PropTypes.object.isRequired,
+  markComplete: PropTypes.func.isRequired
 };
 
 export default TodoItem;
