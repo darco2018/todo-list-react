@@ -11,6 +11,7 @@ class TodoItem extends Component {
       textDecoration: this.props.todo.completed ? 'line-through' : 'none'
     };
   };
+ 
 
   render() {
     // REmember to bind(this, id) when passing a value!!! 
@@ -23,9 +24,21 @@ class TodoItem extends Component {
           onChange={this.props.markComplete.bind(this, id)}
         />
         <p style={this.getStyle()}>{title}</p>
+        <button style={btnStyle} onClick={this.props.delTodo.bind(this,id)}>X</button>
       </div>
     );
   }
+}
+
+const btnStyle = {
+    backgroundColor: '#ff0000',
+    color: "#fff",
+    border: 'none',
+    borderRadius: '50%',    
+    padding: '5px 9px',
+    marginRight: '20px',
+    cursor: 'pointer',
+    float: 'right'
 }
 
 TodoItem.propTypes = {
