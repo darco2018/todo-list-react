@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import TodoList from './components/TodoList';
+import AddTodo from './components/AddTodo';
 
 // app must extend compnenet !!!
 class App extends React.Component {
@@ -29,7 +30,7 @@ class App extends React.Component {
   markComplete = id => {
     const todosCopy = this.state.todos.map(todo => {
       if (todo.id === id) {
-        // always return a new object        
+        // always return a new object
         return { ...todo, completed: !todo.completed };
         //return Object.assign({}, todo); this works too
       }
@@ -41,21 +42,25 @@ class App extends React.Component {
     });
   };
 
-  delTodo = id => {    
+  delTodo = id => {
     const filteredTodos = this.state.todos.filter(todo => todo.id !== id);
     this.setState({
       todos: filteredTodos
-    })
-
-  }
+    });
+  };
 
   render() {
     return (
       <div className="App">
-        <h1>Todo List</h1>
-        <TodoList todos={this.state.todos} 
-          markComplete={this.markComplete}
-          delTodo={this.delTodo} />
+        <div className="container">
+          <h1>Todo List</h1>
+          <AddTodo />
+          <TodoList
+            todos={this.state.todos}
+            markComplete={this.markComplete}
+            delTodo={this.delTodo}
+          />
+        </div>
       </div>
     );
   }
