@@ -9,7 +9,7 @@ class TodoList extends Component {
     return (
       <>
         {todos.map(todo => (
-          <TodoItem todo={todo} />
+          <TodoItem key={todo.id} todo={todo} />
         ))}
       </>
     );

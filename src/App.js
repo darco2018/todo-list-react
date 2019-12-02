@@ -5,22 +5,23 @@ import TodoList from './components/TodoList';
 // app must extend compnenet !!!
 class App extends React.Component {
   // state cannot have const !
+  // boolean without quotes !
   state = {
     todos: [
       {
         id: '1',
         title: 'Walk the dog',
-        completed: 'false'
+        completed: false
       },
       {
         id: '2',
         title: 'Get the parcel',
-        completed: 'false'
+        completed: false
       },
       {
         id: '3',
         title: 'Go to the bank',
-        completed: 'false'
+        completed: true
       }
     ]
   };
