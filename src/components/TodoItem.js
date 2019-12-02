@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { maxHeaderSize } from 'http';
 
 class TodoItem extends Component {
+
+
   getStyle = () => {
     return {      
       backgroundColor: '#f4f4f4',

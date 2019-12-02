@@ -49,12 +49,25 @@ class App extends React.Component {
     });
   };
 
+  addTodo = title => {
+    const newTodo = {
+      id: '4',
+      title, // same name for value
+      completed: false
+    };
+
+    const newTodoList = [...this.state.todos, newTodo];
+    this.setState({
+      todos: newTodoList
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <div className="container">
           <h1>Todo List</h1>
-          <AddTodo />
+          <AddTodo addTodo={this.addTodo} />
           <TodoList
             todos={this.state.todos}
             markComplete={this.markComplete}
