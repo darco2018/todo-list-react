@@ -7,6 +7,7 @@ class TodoItem extends Component {
       backgroundColor: '#f4f4f4',
       padding: '10px',
       borderBottom: '1px #ccc dotted',
+      display: 'inline',
       textDecoration: this.props.todo.completed ? 'line-through' : 'none'
     };
   };
@@ -15,10 +16,10 @@ class TodoItem extends Component {
     //console.log(this.props.todo);
     const todo = this.props.todo;
     return (
-      <>
-        {/* <input type="checkbox" /> */}
+      <div style={{marginBottom: '25px'}}>
+        <input type="checkbox" />
         <p style={this.getStyle()}>{todo.title}</p>
-      </>
+      </div>
     );
   }
 }
@@ -26,5 +27,7 @@ class TodoItem extends Component {
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired
 };
+
+
 
 export default TodoItem;
