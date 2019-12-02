@@ -13,12 +13,16 @@ class TodoItem extends Component {
   };
 
   render() {
+    // REmember to bind(this, id)!!! or use arrow function above
     //console.log(this.props.todo);
-    const todo = this.props.todo;
+    const { id, title } = this.props.todo;
     return (
-      <div style={{marginBottom: '25px'}}>
-        <input type="checkbox" />
-        <p style={this.getStyle()}>{todo.title}</p>
+      <div style={{ marginBottom: '25px' }}>
+        <input
+          type="checkbox"
+          onChange={this.props.markComplete.bind(this, id)}
+        />
+        <p style={this.getStyle()}>{title}</p>
       </div>
     );
   }
@@ -27,7 +31,5 @@ class TodoItem extends Component {
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired
 };
-
-
 
 export default TodoItem;

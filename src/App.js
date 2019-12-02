@@ -26,11 +26,26 @@ class App extends React.Component {
     ]
   };
 
+  markComplete = id => {
+    const todosCopy = this.state.todos.map(todo => {
+      if (todo.id === id) {
+        const completed = !todo.completed;
+        //return Object.assign({}, todo); this works too
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
+
+    this.setState({
+      todos: todosCopy
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>Todo List</h1>
-        <TodoList todos={this.state.todos} />
+        <TodoList todos={this.state.todos} markComplete={this.markComplete} />
       </div>
     );
   }
