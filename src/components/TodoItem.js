@@ -2,24 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export class TodoItem extends Component {
-  
+
+   getItemStyle = () =>{
+    return {
+        display: 'inline',
+        textDecoration: this.props.todo.completed ? 'line-through' : 'none'
+    }
+   } 
+
   render() {
-    const { title } = this.props.todo;
+    const { title, id } = this.props.todo;
 
     return (
-      <div className="todoItem" style={itemBar}>
-        <input type="checkbox" />
-        <p style={itemText}>{title}</p> <button>X</button>
+      <div className="todoItem" style={itemBarStyle}>
+        <input type="checkbox" onChange={this.props.markComplete.bind(this, id)}/>
+        <p style={this.getItemStyle()}>{title}</p>
+        <button onClick={this.props.deleteTodo.bind(this, id)}>X</button>
       </div>
     );
   }
 }
 
 TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired
-}
+  todo: PropTypes.object.isRequired,
+  markComplete: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired
+};
 
-const itemBar = { textAlign: 'left', margin: '10px 130px' };
-const itemText = { display: 'inline' }
+const itemBarStyle = { textAlign: 'left', margin: '10px 130px' };
 
 export default TodoItem;
