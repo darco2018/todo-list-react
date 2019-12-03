@@ -2,24 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export class TodoItem extends Component {
-
-   getItemStyle = () =>{
+  getItemStyle = () => {
     return {
-        display: 'inline',
-        textDecoration: this.props.todo.completed ? 'line-through' : 'none'
-    }
-   } 
+      background: '#f4f4f4',
+      padding: '10px',
+      borderBottom: '1px #ccc dotted',
+      textDecoration: this.props.todo.completed ? 'line-through' : 'none'
+    };
+  };
 
   render() {
     const { title, id } = this.props.todo;
-    if(title === ""){
-        throw new Error();
+    if (title === '') {
+      throw new Error();
     }
     return (
-      <div className="todoItem" style={itemBarStyle}>
-        <input type="checkbox" onChange={this.props.markComplete.bind(this, id)}/>
-        <p style={this.getItemStyle()}>{title}</p>
-        <button onClick={this.props.deleteTodo.bind(this, id)}>X</button>
+      <div style={this.getItemStyle()}>
+        <p>
+          <input
+            type="checkbox"
+            onChange={this.props.markComplete.bind(this, id)}
+          />
+          {' '}
+          {title}
+          <button style={btnStyle} onClick={this.props.deleteTodo.bind(this, id)}>
+            X
+          </button>
+        </p>
       </div>
     );
   }
@@ -31,8 +40,14 @@ TodoItem.propTypes = {
   deleteTodo: PropTypes.func.isRequired
 };
 
-const itemBarStyle = { textAlign: 'left', margin: '10px 130px' };
+const btnStyle = {
+  background: '#ff0000',
+  color: '#fff',
+  padding: '5px 9px',
+  borderRadius: '50%',
+  border: 'none',
+  cursor: 'pointer',
+  float: 'right'
+};
 
 export default TodoItem;
-
-

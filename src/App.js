@@ -96,23 +96,21 @@ class App extends React.Component {
     return (
       // see notes in ErrorBoundary file
       <ErrorBoundary>
-        <div className="App">
-          <div className="container">
-            <h1>Todos</h1>
+        <div className="container">
+          <h1>Todos</h1>
 
-            <AddTodo
-              title={this.state.title}
-              updateInput={this.updateInput}
-              addTodo={this.addTodo}
-              deleteTodo={this.deleteTodo}
-            />
+          <AddTodo
+            title={this.state.title}
+            updateInput={this.updateInput}
+            addTodo={this.addTodo}
+            deleteTodo={this.deleteTodo}
+          />
 
-            <TodoList
-              todos={this.state.todos}
-              markComplete={this.markComplete}
-              deleteTodo={this.deleteTodo}
-            />
-          </div>
+          <TodoList
+            todos={this.state.todos}
+            markComplete={this.markComplete}
+            deleteTodo={this.deleteTodo}
+          />
         </div>
       </ErrorBoundary>
     );

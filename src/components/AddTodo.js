@@ -16,15 +16,16 @@ export class AddTodo extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit} style={{ display: 'flex' }}>
           <input
             type="text"
             name="title"
+            style={{ flex: '10', padding: '5px' }}
             value={this.props.title}
             placeholder="Add new todo"
             onChange={this.onChange}
           />
-          <button>Submit</button>
+          <button className="btn" style={{flex: '1'}}>Submit</button>
         </form>
       </div>
     );
