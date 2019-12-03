@@ -9,12 +9,14 @@ export class TodoList extends Component {
     return (
       <div>
         {todos.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            markComplete={this.props.markComplete}
-            deleteTodo={this.props.deleteTodo}
-          />
+          <ErrorBoundary key={todo.id}>
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              markComplete={this.props.markComplete}
+              deleteTodo={this.props.deleteTodo}
+            />
+          </ErrorBoundary>
         ))}
       </div>
     );
@@ -26,5 +28,25 @@ TodoList.propTypes = {
   markComplete: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired
 };
+
+class ErrorBoundary extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        hasError: false
+      };
+    }
+    static getDerivedStateFromError(error) {
+      return {
+        hasError: true
+      };
+    }
+    render() {
+      if (this.state.hasError) {
+        return <span style={{color: 'red'}}>This todo cannot be displayed!</span>;
+      }
+      return this.props.children;
+    }
+  }
 
 export default TodoList;

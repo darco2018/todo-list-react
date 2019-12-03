@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export class AddTodo extends Component {
-  
-  onChange = (e) => {
+  onChange = e => {
     // delegate to parent
     this.props.updateInput(e);
-  }
+  };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
+    // delegate to parent
     this.props.addTodo(e);
-  }
+  };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.onSubmit} >
+        <form onSubmit={this.onSubmit}>
           <input
             type="text"
             name="title"

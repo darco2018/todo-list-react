@@ -12,7 +12,9 @@ export class TodoItem extends Component {
 
   render() {
     const { title, id } = this.props.todo;
-
+    if(title === ""){
+        throw new Error();
+    }
     return (
       <div className="todoItem" style={itemBarStyle}>
         <input type="checkbox" onChange={this.props.markComplete.bind(this, id)}/>
@@ -32,3 +34,5 @@ TodoItem.propTypes = {
 const itemBarStyle = { textAlign: 'left', margin: '10px 130px' };
 
 export default TodoItem;
+
+
