@@ -26,7 +26,7 @@ class TodoItem extends Component {
           onChange={this.props.markComplete.bind(this, id)}
         />
         <p style={this.getStyle()}>{title}</p>
-        <button style={btnStyle} onClick={this.props.delTodo.bind(this,id)}>X</button>
+        <button style={btnStyle} onClick={this.props.delTodo.bind(this, id)}>X</button>
       </div>
     );
   }

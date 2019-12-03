@@ -2,29 +2,39 @@ import React from 'react';
 import './App.css';
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
+import uuid from 'uuid';
 
 // app must extend compnenet !!!
 class App extends React.Component {
   // state cannot have const !
   // boolean without quotes !
   state = {
+    newTodoInput: '',
     todos: [
       {
-        id: '1',
+        id: uuid.v4(),
         title: 'Walk the dog',
         completed: false
       },
       {
-        id: '2',
+        id: uuid.v4(),
         title: 'Get the parcel',
         completed: false
       },
       {
-        id: '3',
+        id: uuid.v4(),
         title: 'Go to the bank',
         completed: true
       }
     ]
+  };
+
+  handleInputChange = e => {
+    // delegate to parent
+    this.setState({
+      //same as todoInput: e.target.value
+      [e.target.name]: [e.target.value]
+    });
   };
 
   markComplete = id => {
@@ -49,16 +59,19 @@ class App extends React.Component {
     });
   };
 
-  addTodo = title => {
+  addTodo = () => {    
+            
     const newTodo = {
-      id: '4',
-      title, // same name for value
+      id: uuid.v4(),
+      title: this.state.newTodoInput,
       completed: false
     };
 
-    const newTodoList = [...this.state.todos, newTodo];
+    const newTodos = [...this.state.todos, newTodo];
+    // clear input field
     this.setState({
-      todos: newTodoList
+      newTodoInput: '',
+      todos: newTodos
     });
   };
 
@@ -67,7 +80,11 @@ class App extends React.Component {
       <div className="App">
         <div className="container">
           <h1>Todo List</h1>
-          <AddTodo addTodo={this.addTodo} />
+          <AddTodo
+            addTodo={this.addTodo}
+            newTodoInput={this.state.newTodoInput}
+            handleInputChange={this.handleInputChange}
+          />
           <TodoList
             todos={this.state.todos}
             markComplete={this.markComplete}
