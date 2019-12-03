@@ -1,9 +1,12 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 import ErrorBoundary from './components/ErrorBoundary';
+import Header from './components/layout/Header';
+import About from './pages/About'
 
 class App extends React.Component {
   // state cannot be const !
@@ -96,22 +99,33 @@ class App extends React.Component {
     return (
       // see notes in ErrorBoundary file
       <ErrorBoundary>
-        <div className="container">
-          <h1>Todos</h1>
+        <Router>
+          <div className="container">
+            <Header />
 
-          <AddTodo
-            title={this.state.title}
-            updateInput={this.updateInput}
-            addTodo={this.addTodo}
-            deleteTodo={this.deleteTodo}
-          />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <>
+                  <AddTodo
+                    title={this.state.title}
+                    updateInput={this.updateInput}
+                    addTodo={this.addTodo}
+                    deleteTodo={this.deleteTodo}
+                  />
+                  <TodoList
+                    todos={this.state.todos}
+                    markComplete={this.markComplete}
+                    deleteTodo={this.deleteTodo}
+                  />
+                </>
+              )}
+            />
+          </div>
 
-          <TodoList
-            todos={this.state.todos}
-            markComplete={this.markComplete}
-            deleteTodo={this.deleteTodo}
-          />
-        </div>
+          <Route path="/about" component={About} />
+        </Router>
       </ErrorBoundary>
     );
   }
