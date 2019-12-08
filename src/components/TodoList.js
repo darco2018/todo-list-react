@@ -7,6 +7,8 @@ export class TodoList extends Component {
     const todos = this.props.todos;
 
     return (
+      // each todo willl have a separate ErrorBoundary defined below.
+      // If you want to trigger error, set one of the todo's title to ''
       <div>
         {todos.map(todo => (
           <ErrorBoundary key={todo.id}>

@@ -14,6 +14,9 @@ export class AddTodo extends Component {
   };
 
   render() {
+    // onsubmit is added to parent
+    // value for input is passed down as props - common pattern
+    // event triggers delegating event to parent - common pattern - lift state up
     return (
       <div>
         <form onSubmit={this.onSubmit} style={{ display: 'flex' }}>

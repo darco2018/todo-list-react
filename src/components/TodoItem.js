@@ -13,9 +13,13 @@ export class TodoItem extends Component {
 
   render() {
     const { title, id } = this.props.todo;
+    // will be caught by ErrorBoundary from Todolist & display: This todo cannot be displayed!
     if (title === '') {
       throw new Error();
     }
+    // note we pass the id from the TodoList but we could've put 
+    // onChange={()=>this.markComplete(todo.id)} in the parent instead, so as not to pass the id
+    // & here just have this.props.markComplete
     return (
       <div style={this.getItemStyle()}>
         <p>
@@ -31,6 +35,7 @@ export class TodoItem extends Component {
         </p>
       </div>
     );
+    // note how button with X is styled
   }
 }
 

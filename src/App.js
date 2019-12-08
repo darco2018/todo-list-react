@@ -72,6 +72,7 @@ class App extends React.Component {
   };
 
   deleteTodo = id => {
+    // note the use of filter
     try {
       const updatedTodos = this.state.todos.filter(todo => {
         return todo.id !== id;
@@ -98,6 +99,8 @@ class App extends React.Component {
 
     return (
       // see notes in ErrorBoundary file
+      // note: exact in Route & render={props when more than 1 components
+      // in the 2nd Route onlly componenet={About} wich refers to  /about url
       <ErrorBoundary>
         <Router>
           <div className="container">
