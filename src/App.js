@@ -1,12 +1,13 @@
 import React from 'react';
-import uuidv4 from 'uuid/v4';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+/* import uuidv4 from 'uuid/v4' uncomment when working without axios;
+ */import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/layout/Header';
-import About from './pages/About'
+import About from './pages/About';
+import axios from 'axios';
 
 class App extends React.Component {
   // state cannot be const !
@@ -16,9 +17,20 @@ class App extends React.Component {
     super(props);
     this.state = {
       title: '',
-      todos: TODOS,
+      /*    before adding axios:   todos: TODOS,  */
+      todos: [],
       error: null
     };
+  }
+
+  // with axios:
+  componentDidMount() {
+    axios
+      .get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+      .then(res => this.setState({ todos: res.data }))
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   // ErrorBoundary doesnt work with event handlers,
@@ -35,6 +47,44 @@ class App extends React.Component {
   };
 
   addTodo = () => {
+    if (!this.state.title) return;
+
+    let newToDo = {
+      /*  id: uuidv4(),  server will return todo with id*/
+      title: this.state.title,
+      completed: false
+    };
+
+    axios
+      .post('https://jsonplaceholder.typicode.com/todos', newToDo)
+      .then(res => {
+        newToDo = res.data;
+        const newTodoList = [...this.state.todos, newToDo];
+        this.setState({
+          title: '',
+          todos: newTodoList
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    //---------------
+
+    /*  ASYNCHRONOUS VERSION
+    async function postToDo() {
+      try {
+        const response = await axios.post('https://jsonplaceholder.typicode.com/todos', newToDo);
+        console.log(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    postToDo(); */
+
+    //---------------------
+
+    /*  without axios:
     try {
       if (!this.state.title) return;
 
@@ -53,9 +103,11 @@ class App extends React.Component {
     } catch (error) {
       this.setState({ error });
     }
+ */
   };
 
   markComplete = id => {
+    //NOTE: we should also update it on the server
     try {
       const updatedTodos = this.state.todos.map(todo => {
         if (todo.id === id) {
@@ -72,8 +124,25 @@ class App extends React.Component {
   };
 
   deleteTodo = id => {
-    // note the use of filter
-    try {
+    // first delete on server then update UI
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => {
+        // note the use of filter
+        const updatedTodos = this.state.todos.filter(todo => {
+          return todo.id !== id;
+        });
+
+        this.setState({
+          todos: updatedTodos
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    /*  without axios:
+     try {
       const updatedTodos = this.state.todos.filter(todo => {
         return todo.id !== id;
       });
@@ -83,7 +152,7 @@ class App extends React.Component {
       });
     } catch (error) {
       this.setState({ error });
-    }
+    } */
   };
 
   render() {
@@ -133,11 +202,11 @@ class App extends React.Component {
     );
   }
 }
-
+/*  Linked to state when working without axios. Also uncomment uuidv4 for id generation
 const TODOS = [
   { id: uuidv4(), title: 'Clean the windows', completed: false },
   { id: uuidv4(), title: 'Do the shopping', completed: false },
   { id: uuidv4(), title: 'Walk the dog', completed: false }
 ];
-
+ */
 export default App;
