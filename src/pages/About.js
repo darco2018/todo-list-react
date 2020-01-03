@@ -3,7 +3,9 @@ import React from 'react';
 export default function About() {
   return (
     <div>
-      <p style={{ paddingLeft: '20px' }}>This is my POC with React</p>
+      <span style={{ display: 'block', width: '200px', margin: '50px auto' }}>
+        This is my POC with React
+      </span>
     </div>
   );
 }
